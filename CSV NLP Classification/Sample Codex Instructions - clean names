@@ -1,0 +1,22 @@
+# Instructions to give to Codex
+
+## Purpose
+Clean the file test_names_1000.csv based on the names
+
+## Instructions
+I want you to use the following file for your instructions: CSV NLP Classification/Group by Common Instructions.md
+
+Use filename: CSV NLP Classification/clean_test_names_classification.csv
+target_column: name
+
+Create a new name called CSV NLP Classification/clean_test_names_classification.csv
+
+The new column should be called 'Cleaned_Names'
+
+The updated names should not have any punctuation. 
+
+For animals - please update the name to reflect only the base animal name (ex: horse, cat, dog, etc). All entries with an animal classification should have a valid animal name.
+For companies - please update the name so that it only includes the proper name (ex: use Google instead of Google Inc). All entries with a company classification should have a valid company name.
+For cities - All entries with a city classification should have a valid city name.
+
+As a final formatting/hygeine item - the output should only have three columns. If there are extra commas that would cause importing a csv file to read the document as having a fourth (or more) column, please eliminate those commas.
