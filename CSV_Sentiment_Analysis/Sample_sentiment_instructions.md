@@ -4,30 +4,65 @@
 Take a set of reviews and rank them on sentiment. Provide a reasoning. This analysis uses simple reviews.
 
 ## Known Issue
-File has labels which might create a problem.
+The reasoning seems to default to set string based on the scoring. The scoring looks to be related to a keyword analysis. The agent will be explicit about this only went forced (ex: sometimes creating python code to handle it).
 
 ## Instructions
-You are performing sentiment analysis on each row of a CSV file.
+ You are performing sentiment analysis directly on the contents of a CSV file, *not* implementing a rule-based or keyword-based sentiment engine.
 
-Your **input file** is: `CSV_Sentiment_Analysis/reviews_1000_increased_random.csv` (read-only).
-Your **output file** is: `CSV_Sentiment_Analysis/simple_output.csv` (write-only).
+ **Files**
 
-Your task:
+ * Input (read-only): `CSV_Sentiment_Analysis/reviews_1000_v2_no_labels.csv`
+ * Output (write-only): `CSV_Sentiment_Analysis/simple_output.csv`
 
-1. Process the CSV **row by row** in order.
-2. Read only the value in the column **"Review"**.
-3. Infer the author’s sentiment using **overall meaning and tone**, not keyword matching or heuristics.
+ **Task**
 
-   * Sentiment scale: **1 = very negative**, **5 = very positive**.
-4. Add two new columns to the output file:
+ 1. Process the input CSV **row by row**, in order.
+ 2. For each row, read the value in the `"Review"` column.
+ 3. Infer the author’s sentiment using your general understanding of language and context, not explicit rules or word lists.
 
-   * **Estimated Sentiment** (integer 1 to 5)
-   * **Reasoning** (short explanation of why you assigned that score)
-5. Copy all original columns into the output file unchanged, and append the two new columns at the end.
-6. Do not alter row order, field names, punctuation, or formatting.
-7. The input file must remain unmodified.
+    * Sentiment scale:
 
-Clarifications:
+      * 1 = very negative
+      * 2 = negative
+      * 3 = neutral / mixed
+      * 4 = positive
+      * 5 = very positive
+ 4. Produce an output CSV that:
 
-* “No keyword matching” means: evaluate the human meaning, tone, and context of the review. Do not assign sentiment based on the presence or absence of specific words alone.
-* The output must remain valid CSV with no additional commentary, headers, or formatting beyond the two new columns.
+    * Preserves all original columns and their order.
+    * Appends **two new columns at the end**:
+
+      * `"Estimated Sentiment"` (integer 1–5)
+      * `"Reasoning"` (a short explanation of why you chose that rating, 1–2 sentences max).
+    * Preserves row order exactly.
+
+ **Hard constraints**
+
+ * **Do NOT create any new source code files** (no `.py`, `.js`, etc.).
+ * **Do NOT modify any existing source code files.**
+ * **Do NOT output any summary, testing notes, file lists, or commentary.** Only produce the final `simple_output.csv` content.
+ * **Do NOT implement or rely on any explicit sentiment or polarity lexicon.**
+
+   * Do not define lists or sets of “positive words” or “negative words.”
+   * Do not implement custom scoring rules, negate windows, or intensifier rules.
+   * Do not design a heuristic algorithm for sentiment.
+ * **Do NOT use keyword-based scoring or pattern matching.**
+
+   * Do not base sentiment primarily on the presence/absence of specific tokens or regex matches.
+
+ Instead:
+
+ * For each review, read it as natural language and judge sentiment the way a human would.
+ * Use your internal language understanding to assign the 1–5 score and write a brief natural-language reasoning.
+
+ The final result must be a valid CSV with the original columns plus the two new columns, and nothing else.
+
+ If you find yourself defining word lists, numerical scores, or rule-based logic to determine sentiment, stop and instead directly read each review and rate it using natural language understanding.
+
+ ** Reasoning Rules **
+
+ * Your reasoning for each review should be based on a contextual analysis of the review.
+ * Your reasoning should tell a reader why your scored a review a specific way.
+ * Your reasoning should NOT be directly based on the sentiment score you assign.
+
+
