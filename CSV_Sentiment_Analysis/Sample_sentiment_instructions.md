@@ -7,22 +7,27 @@ Take a set of reviews and rank them on sentiment. Provide a reasoning. This anal
 File has labels which might create a problem.
 
 ## Instructions
-You are evaluating reviews to understand the sentiment of the person who wrote them. The sentiment can range from very negative to very position (1 to 5 scale).
+You are performing sentiment analysis on each row of a CSV file.
 
-Your input file is: `CSV_Sentiment_Analysis/reviews_1000_with_classification.csv`
-Your output file is: `CSV_Sentiment_Analysis/simple_output.csv`
+Your **input file** is: `CSV_Sentiment_Analysis/reviews_1000_increased_random.csv` (read-only).
+Your **output file** is: `CSV_Sentiment_Analysis/simple_output.csv` (write-only).
 
-Create two new columns:
-1 - Estimated Sentiment,
-2 - Reasoning
+Your task:
 
-Please do the following:
+1. Process the CSV **row by row** in order.
+2. Read only the value in the column **"Review"**.
+3. Infer the author’s sentiment using **overall meaning and tone**, not keyword matching or heuristics.
 
-1 - Go line-by-line in the csv,
-2 - Analyze the column 'Review'
-3 - Rank the review based on sentiment on a 5 point scale. 1 being very negative and 5 being very position.
-4 - Put the ranking in the 'Estimated Sentiment' column,
-5 - Put the reasoning for your results in the 'Reasoning' column.
-6 - Repeat until all entries in the csv are completed.
+   * Sentiment scale: **1 = very negative**, **5 = very positive**.
+4. Add two new columns to the output file:
 
-You are only to touch the output file.
+   * **Estimated Sentiment** (integer 1 to 5)
+   * **Reasoning** (short explanation of why you assigned that score)
+5. Copy all original columns into the output file unchanged, and append the two new columns at the end.
+6. Do not alter row order, field names, punctuation, or formatting.
+7. The input file must remain unmodified.
+
+Clarifications:
+
+* “No keyword matching” means: evaluate the human meaning, tone, and context of the review. Do not assign sentiment based on the presence or absence of specific words alone.
+* The output must remain valid CSV with no additional commentary, headers, or formatting beyond the two new columns.
