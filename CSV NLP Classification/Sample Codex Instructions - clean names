@@ -7,7 +7,7 @@ Clean the file test_names_1000.csv based on the names
 Variable output - sometimes super clean, other times needs extra reinforcement
 
 ## Instructions
-I want you to use the following file for your instructions: CSV NLP Classification/Group by Common Instructions.md
+I want you to use the following file for your instructions: CSV NLP Classification/Clean_data.md
 
 Use filename: CSV NLP Classification/clean_test_names_classification.csv
 target_column: name

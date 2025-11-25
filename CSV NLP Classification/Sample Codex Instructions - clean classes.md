@@ -7,7 +7,7 @@ Clean the file test_names_1000.csv based on the Classification
 Overrights the historic classification due to asking for 3 columns instead of asking for four.
 
 ## Instructions
-I want you to use the following file for your instructions: CSV NLP Classification/Group by Common Instructions.md
+I want you to use the following file for your instructions: CSV NLP Classification/Clean_data.md
 
 
 Use filename: CSV NLP Classification/test_names_1000.csv
