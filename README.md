@@ -193,5 +193,3 @@ MIT license
 Feel free to adapt the tools however you’d like.
 
 ---
-
-Just say the word.
