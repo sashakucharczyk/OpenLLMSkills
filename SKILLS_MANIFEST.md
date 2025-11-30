@@ -1,6 +1,6 @@
 ---
 # SKILLS_MANIFEST: This YAML block defines the available tools for the LLM agent.
-# The agent should read this block first to determine which skill is appropriate.
+# The agent or LLM should read this block first to determine which skill is appropriate.
 skills:
 
   - name: "csv-sentiment-analysis"
