@@ -76,7 +76,7 @@ This creates a “micro-skill” the LLM can run deterministically.
 
 ## **Current Skills Included**
 
-Please see: SKILLS_MANIFEST.md
+Please see: SKILLS_MANIFEST.md for a list of skills.
 
 It should include each skill, a description, and the inputs/outputs expected.
 
