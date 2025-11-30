@@ -80,17 +80,6 @@ Please see: SKILLS_MANIFEST.md for a list of skills.
 
 It should include each skill, a description, and the inputs/outputs expected.
 
-### **3. Taxonomy Induction + Classification Skill**
-
-Folder: `CSV_Taxonomy_Analysis/`
-Functionality:
-
-* Induces a compact taxonomy from a data sample
-* Generates inclusion/exclusion criteria
-* Classifies all rows under that taxonomy
-* Provides per-row reasoning
-* Reusable across any domain
-
 ---
 
 ## **Using OpenLLMSkills**
