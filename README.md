@@ -76,25 +76,9 @@ This creates a “micro-skill” the LLM can run deterministically.
 
 ## **Current Skills Included**
 
-### **1. Sentiment Analysis Skill**
+Please see: SKILLS_MANIFEST.md
 
-Folder: `CSV_Sentiment_Analysis/`
-Functionality:
-
-* Reads a CSV with free-text reviews
-* Assigns human-like sentiment (1–5)
-* Provides grounded reasoning
-* Avoids heuristics, scoring systems, or rule-based methods
-
-### **2. CSV Normalization Skill**
-
-Folder: `CSV_Name_Normalization/` (or similar)
-Functionality:
-
-* Groups spelling variants / near-duplicates
-* Suggests unified canonical names
-* Avoids keyword matching
-* Useful for cleaning datasets before modeling
+It should include each skill, a description, and the inputs/outputs expected.
 
 ### **3. Taxonomy Induction + Classification Skill**
 
