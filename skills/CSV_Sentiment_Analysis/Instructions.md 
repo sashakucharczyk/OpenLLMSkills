@@ -22,19 +22,23 @@ When annotating rows:
    - A sentiment label from the user-defined scale.
    - A short reasoning (1–2 sentences) grounded in the row’s text.
 
-## Hard Rules
-These rules override all other considerations:
+## Hard constraints
 
-### 🍂 **Forbidden Approaches**
-You may **NOT**:
-- create new source code files  
-- modify existing source code files  
-- use predefined sentiment lexicons  
-- use keyword lists or token-matching  
-- implement algorithms, scoring functions, or rule systems  
-- compute hidden numeric scores  
-- rely on pattern templates for reasoning  
-- generate summaries or commentary outside the output CSV  
+**You ARE allowed to write and run simple Python code** to:
+- Read the input CSV
+- Iterate over rows (optionally in chunks)
+- Build the output rows
+- Write the final output CSV
+
+The **sentiment decision itself** must come from natural-language understanding, not from:
+- Explicit sentiment lexicons (lists of “positive/negative words” etc.)
+- Numeric scoring schemes (e.g., accumulating a `score` and mapping score ranges)
+- Rule-based token/regex patterns as the *primary* decision mechanism
+
+You MUST NOT:
+- Create new standalone source code files (no extra `.py`/`.js` checked into the repo)
+- Import or call external sentiment-analysis libraries or models (TextBlob, VADER, transformers, etc.)
+- Design a custom scoring engine whose main purpose is to compute sentiment 
 
 ### 🌿 **Required Behavior**
 - Sentiment must be based on *meaning*, not word presence.
@@ -43,6 +47,16 @@ You may **NOT**:
   - row order
   - original columns
   - CSV formatting integrity
+
+## Scale and chunking
+
+- If a dataset is too large to run in a single attempt, chunking it is permitted.
+- Process rows in batches (e.g., 300 at a time) in a loop.
+- Append each processed batch to an in-memory list or write incrementally.
+- Ensure every row in the input appears exactly once in the output.
+- Preserve row order from the original CSV.
+
+Chunking is an internal implementation detail. The user still expects **one final output CSV** with all rows annotated.
 
 ## Output Format Requirements
 The final CSV must append two new columns:
