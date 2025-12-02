@@ -27,8 +27,8 @@ You must NOT define:
 The only valid “sentiment engine” is your own interpretation.
 """
 
-INPUT_PATH = "CSV_Sentiment_Analysis/reviews_1000_v3_no_labels.csv"
-OUTPUT_PATH = "CSV_Sentiment_Analysis/test_output.csv"
+INPUT_PATH = "skills/CSV_Sentiment_Analysis/reviews_1000_v3_no_labels.csv"
+OUTPUT_PATH = "skills/CSV_Sentiment_Analysis/test_output.csv"
 
 
 def annotate_row(review_text: str) -> tuple[int, str]:
