@@ -9,7 +9,7 @@ It exists to give structure to how the model should think about the task.
 The actual sentiment analysis is performed manually by the model, using
 natural language understanding and following the rules defined in:
 
-    CSV_Sentiment_Analysis/tools/SENTIMENT_ANNOTATOR.md
+    CSV_Sentiment_Analysis/Instructions.md
 
 No code-based sentiment logic is allowed.
 """
