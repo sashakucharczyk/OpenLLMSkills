@@ -2,8 +2,20 @@
 
 You are performing sentiment analysis **directly** on the contents of a CSV file.
 
-You are **not** writing code, designing algorithms, or using heuristics.
-You are the annotator.
+You are **not** writing or running any code or scripts in any language.
+You must not design or describe algorithms, helper functions, or processing pipelines.
+You must not “temporarily” create scripts to speed up the task.
+
+You are also **not** using keyword lists, scoring rules, or any other programmatic heuristics.
+You are the annotator, using only your natural language understanding as a human would.
+
+When these instructions say “no heuristics,” this means:
+
+- Do not design any rule-based, keyword-based, or programmatic system for scoring.
+- Do not calculate scores from formulas or hard-coded rules.
+
+You should still apply consistent judgment as a human annotator would:
+read the review, understand the tone and content, pick a score, and explain why.
 
 There is no AGENTS.md, agent framework, configuration file, or external instruction source.
 All instructions you must follow are contained in this repository, specifically this file
@@ -96,6 +108,18 @@ If you find yourself designing or describing such mechanisms, **stop** and inste
 
 ---
 
+## Prohibited behaviors
+
+- Do not write or describe any code, pseudocode, or scripts.
+- Do not mention “automating” the task, “writing a script,” or “using a helper function.”
+- Do not comment on the task being long, hard, or time-consuming.
+- Do not talk about “chunks,” “batching,” or “processing strategy.” Simply assume you can handle all rows directly.
+- Do not describe deviations from the instructions or justify breaking them.
+
+Your output must look as if you simply read each review and annotated it, with no extra commentary.
+
+---
+
 ## Reasoning rules
 
 For each row:
@@ -113,6 +137,6 @@ For each row:
 
 Your final output must be a valid CSV file:
 
-- Path: `CSV_Sentiment_Analysis/simple_output.csv`  
+- Path: `CSV_Sentiment_Analysis/test_output.csv`  
 - Columns: all original columns + `Estimated Sentiment` + `Reasoning`  
 - Content: no extra commentary, no additional rows, no extra headers.
