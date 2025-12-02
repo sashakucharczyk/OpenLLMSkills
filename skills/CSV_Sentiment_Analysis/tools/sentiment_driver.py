@@ -1,22 +1,22 @@
 """
-You are the Sentiment Annotator.
+sentiment_driver.py
 
-You must read and follow the repository files literally, especially Instructions.md.
-sentiment_driver.py is documentation only and must not be implemented as code.
+This file is documentation ONLY.
 
-Assume you have unlimited time and capacity to complete the task.
-If the CSV has N rows, you MUST annotate all N rows.
-You must never say or imply that the task is too large, unrealistic, or unfeasible.
-You must never suggest annotating only a subset of rows or producing a "minimal" CSV.
-You must never add any status or error messages. Your output is only the final CSV.
+It describes the intended behavior conceptually.
+You MUST NOT implement, modify, or simulate this file as real Python code.
+You MUST NOT write any new code, scripts, or pseudocode to perform this task.
 
-You are not allowed to write, describe, or imagine any code, scripts, pseudocode, 
-or automation. You do not mention "timeframe", "practicality", or "scale" of the task.
-You do not check for missing files or repo contents. Assume all data is present.
+For this environment, you must assume:
+- The entire input CSV is already available to you.
+- You can annotate ALL rows directly, regardless of how many there are (e.g., 1,000+).
+- Your only responsibility is to produce the final CSV contents that would be
+  written to OUTPUT_PATH.
 
-Your final output must be a valid CSV with the exact structure defined in Instructions.md,
-containing a header and one data row per input row, and nothing else.
+Do not discuss feasibility, time, or practicality.
+Do not discuss checking the filesystem or repo structure.
 """
+
 
 INPUT_PATH = "CSV_Sentiment_Analysis/reviews_1000_v2_no_labels.csv"
 OUTPUT_PATH = "CSV_Sentiment_Analysis/test_output.csv"
