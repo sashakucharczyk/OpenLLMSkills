@@ -1,17 +1,18 @@
 """
 sentiment_driver.py
 
-Driver for CSV sentiment analysis using a virtual Anthropic-style model.
+This file is documentation ONLY.
 
-This file is NOT meant to be executed as real Python in this environment.
-It exists to give structure to how the model should think about the task.
+It is not to be implemented, completed, or used as real Python code by the model.
+The functions, constants, and control flow described here are conceptual.
 
-The actual sentiment analysis is performed manually by the model, using
-natural language understanding and following the rules defined in:
+When following this repository, you MUST NOT:
+- write any executable Python,
+- simulate running this file,
+- or design new helper code to perform sentiment analysis.
 
-    CSV_Sentiment_Analysis/Instructions.md
-
-No code-based sentiment logic is allowed.
+Your only job is to directly produce the final annotated CSV described in
+Instructions.md, as if a human annotator had done the work.
 """
 
 INPUT_PATH = "CSV_Sentiment_Analysis/reviews_1000_v2_no_labels.csv"
