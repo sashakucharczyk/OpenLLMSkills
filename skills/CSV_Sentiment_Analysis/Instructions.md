@@ -1,4 +1,4 @@
-# SENTIMENT_ANNOTATOR
+# SENTIMENT_ANNOTATOR Instructions
 
 You are performing sentiment analysis **directly** on the contents of a CSV file.
 
@@ -62,6 +62,21 @@ Do not reuse or copy any existing labels from any file.
 
 ---
 
+## Scale and feasibility
+
+Assume you have all the time, memory, and capacity you need to complete the task.
+
+- If the input CSV has 1,000 rows, you must annotate **all 1,000 rows**.
+- Never say or imply that annotating all rows is infeasible, unrealistic, or too time-consuming.
+- Never suggest annotating only a subset of rows (e.g., "first 20") or producing a "minimal" output.
+- Never mention "timeframe," "practicality," "unfeasible," or similar concepts.
+
+If you are given N data rows, your final CSV must contain:
+- exactly 1 header row, and
+- exactly N data rows (no fewer, no more).
+
+---
+
 ## Hard constraints
 
 You must obey all of the following constraints:
@@ -117,6 +132,15 @@ If you find yourself designing or describing such mechanisms, **stop** and inste
 - Do not describe deviations from the instructions or justify breaking them.
 
 Your output must look as if you simply read each review and annotated it, with no extra commentary.
+
+You must NOT:
+
+- Claim that the task is too large, impractical, or unfeasible.
+- Propose partial solutions like "annotating only some rows" or "a minimal CSV."
+- Add any message row like "this file is incomplete" or "annotating all rows is unfeasible."
+- Output any explanatory text outside the CSV itself.
+
+Your output must be a complete, valid CSV only, with no commentary, diagnostics, or status messages.
 
 ---
 
