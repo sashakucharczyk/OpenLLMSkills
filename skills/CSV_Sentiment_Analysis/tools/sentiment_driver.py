@@ -3,150 +3,110 @@ sentiment_driver.py
 
 Driver for CSV sentiment analysis using a virtual Anthropic-style model.
 
-This file is written as Python to keep tools happy, but the core logic is meant
-to be "simulated" by an LLM/agent rather than actually executed as code.
+This file is NOT meant to be executed as real Python in this environment.
+It exists to give structure to how the model should think about the task.
+
+The actual sentiment analysis is performed manually by the model, using
+natural language understanding and following the rules defined in:
+
+    CSV_Sentiment_Analysis/tools/SENTIMENT_ANNOTATOR.md
+
+No code-based sentiment logic is allowed.
 """
 
-import csv
-from typing import List
+INPUT_PATH = "CSV_Sentiment_Analysis/reviews_1000_v2_no_labels.csv"
+OUTPUT_PATH = "CSV_Sentiment_Analysis/test_output.csv"
+
+# Conceptual maximum chunk size. This is for mental structure only.
+CHUNK_SIZE = 50
 
 
-def read_csv_chunk(input_path: str, start: int, end: int) -> str:
+def annotate_chunk(csv_chunk: str) -> str:
     """
-    Read rows [start, end) from the CSV at `input_path` and return them as a
-    minimal CSV string (including header) for annotation.
+    MODEL INSTRUCTIONS (READ CAREFULLY):
 
-    This helper is here for structure; tools may ignore the body and instead
-    directly provide CSV chunks to `annotate_chunk`.
+    This function is NOT real Python logic. Its body will not be executed.
+    Instead, you (the model) must conceptually "execute" this function by
+    directly producing annotated CSV content for a small chunk of rows.
+
+    You must act as a human annotator, not as a programmer.
+
+    Input:
+        - csv_chunk: a small CSV segment as text, including the header row
+          and up to CHUNK_SIZE data rows from INPUT_PATH.
+
+    Behavior:
+        - You are NOT allowed to write or modify any code here.
+        - You are NOT allowed to design or use any heuristics, rules,
+          word lists, lexicons, or numeric scoring systems.
+        - You are NOT allowed to call or emulate external sentiment
+          libraries or models.
+        - You must ignore any pre-existing sentiment labels in other files.
+        - You must follow ALL rules from SENTIMENT_ANNOTATOR.md.
+
+    Task inside this function:
+        1. For each data row in csv_chunk, read the Review column.
+        2. Determine the sentiment as a human annotator would:
+           - 1 = very negative
+           - 2 = leaning very negative
+           - 3 = negative
+           - 4 = leaning negative
+           - 5 = neutral / mixed
+           - 6 = leaning positive
+           - 7 = positive
+           - 8 = leaning very positive
+           - 9 = very positive
+        3. Append two columns to each row:
+           - Estimated Sentiment (integer 1–9)
+           - Reasoning (1–2 sentences explaining why, grounded in the text)
+        4. Preserve:
+           - The original header columns, in order.
+           - The row order.
+        5. Return a CSV string that:
+           - Includes the header row.
+           - Includes all original columns plus the two new ones.
+           - Contains ONLY the rows from this chunk.
+
+    Absolutely forbidden inside this function:
+        - Defining or using positive/negative word lists.
+        - Designing scoring formulas, negation windows, or intensifier rules.
+        - Counting tokens to determine sentiment.
+        - Reusing prior labels from any file.
+        - Generating code or pseudo-code.
+
+    You must "replace" the body of this function with the final annotated
+    CSV text for the chunk when conceptually executing it.
     """
-    with open(input_path, newline="", encoding="utf-8") as f:
-        reader = list(csv.reader(f))
-    header = reader[0]
-    rows = reader[1:][start:end]
-    output = [header] + rows
-
-    # Re-encode as CSV text
-    from io import StringIO
-
-    buf = StringIO()
-    writer = csv.writer(buf)
-    for row in output:
-        writer.writerow(row)
-    return buf.getvalue()
+    # MODEL: Do NOT write real Python here.
+    # When conceptually "executing" this function, you will directly
+    # produce the annotated CSV text for the chunk instead.
+    raise NotImplementedError
 
 
-def annotate_chunk(csv_chunk: str, min_score: int = 1, max_score: int = 10) -> str:
+def main():
     """
-    MODEL-ONLY FUNCTION: DO NOT EXECUTE AS REAL PYTHON.
+    Conceptual driver:
 
-    You are an orchestrator of a virtual Anthropic-style model called
-    VIRTUAL_SENTIMENT_LLM.
+    If this were executable, it would:
 
-    Your job inside this function is to:
+        1. Read INPUT_PATH as a CSV.
+        2. Split the rows into chunks of at most CHUNK_SIZE rows each.
+        3. For each chunk:
+            - Convert the chunk to CSV text (with header).
+            - Call annotate_chunk(chunk_csv_text) to get the annotated text.
+        4. Concatenate all annotated chunks (minus duplicate headers) in order.
+        5. Write the combined result to OUTPUT_PATH.
 
-      1. Read the `csv_chunk` string, which contains a header row and a subset
-         of the dataset rows.
-      2. For each data row:
-         - Conceptually call VIRTUAL_SENTIMENT_LLM(review_text, rubric) once.
-         - Receive an integer sentiment score in [min_score, max_score].
-         - Receive a short, text-grounded explanation (1–2 sentences).
-      3. Produce a CSV string that:
-         - Preserves all original columns and their order.
-         - Appends two new columns at the end:
-             - "Estimated Sentiment"
-             - "Reasoning"
-         - Includes the header row with those appended column names.
+    In this environment, you (the model) must directly produce the final
+    contents of OUTPUT_PATH as if this process had been executed exactly
+    according to SENTIMENT_ANNOTATOR.md and annotate_chunk()'s rules.
 
-    STRICT CONSTRAINTS:
-
-    - You MUST NOT implement heuristic rules, keyword lists, or lexicon-based
-      scoring. No "if contains 'bad' then score=2" logic.
-    - You MUST NOT derive sentiment by clustering or comparing rows to each other.
-      Each row should be treated as if it got its own LLM call.
-    - You MAY describe orchestration in abstract or pseudo-code terms
-      (e.g., "for each row, call VIRTUAL_SENTIMENT_LLM(...)"), but the actual
-      sentiment decision is always delegated to that virtual model.
-    - Do NOT complain about dataset size; assume that all per-row calls succeed.
-    - Do NOT skip rows or use placeholders; every input row must receive a score
-      and reasoning.
-
-    Sentiment Scale:
-
-      - The allowable range is [min_score, max_score], inclusive.
-      - If the caller does not specify, assume min_score=1 and max_score=10.
-      - Interpret low values as negative sentiment, high values as positive,
-        and middle values as mixed/neutral, but without explicit keyword rules.
-
-    Output:
-
-      - Return a CSV string with the same rows in the same order as `csv_chunk`,
-        but with "Estimated Sentiment" and "Reasoning" appended as columns.
-      - Do not include logs, debug messages, or commentary in the returned text.
+    You MUST NOT actually implement this logic as executable Python.
+    Instead, you must write out the final CSV that would be the result of
+    this conceptual process.
     """
-    # This body will not actually run; the LLM/agent is expected to "execute"
-    # the above instructions by directly emitting the annotated CSV text.
-    raise NotImplementedError("annotate_chunk is intended for LLM simulation only.")
+    pass
 
 
-def write_full_output(
-    input_path: str,
-    output_path: str,
-    chunk_size: int = 300,
-    min_score: int = 1,
-    max_score: int = 10,
-) -> None:
-    """
-    High-level orchestration for tools that actually execute Python.
-
-    Intended flow for a coding agent:
-
-      1. Determine the total number of rows in `input_path`.
-      2. For i in 0..N (step chunk_size):
-           - Read rows [i, i+chunk_size) as a CSV chunk string.
-           - Pass that string into `annotate_chunk(...)` (simulated by the model).
-           - Collect the annotated CSV output.
-      3. Merge all annotated chunks into a single CSV and write it to `output_path`.
-
-    NOTE:
-      - The LLM is responsible for simulating annotate_chunk and may choose to
-        ignore this function body entirely, instead directly producing the final
-        output CSV as if it had processed all chunks.
-    """
-    # This is a reference orchestration. Tools can implement or ignore it.
-    with open(input_path, newline="", encoding="utf-8") as f:
-        reader = list(csv.reader(f))
-    header = reader[0]
-    rows = reader[1:]
-    total = len(rows)
-
-    from io import StringIO
-
-    all_output_rows: List[List[str]] = []
-    for start in range(0, total, chunk_size):
-        end = min(start + chunk_size, total)
-        chunk_rows = [header] + rows[start:end]
-
-        buf = StringIO()
-        writer = csv.writer(buf)
-        for row in chunk_rows:
-            writer.writerow(row)
-        chunk_csv = buf.getvalue()
-
-        # In real execution this would call a model. Here we just document intent.
-        annotated_chunk_csv = annotate_chunk(
-            chunk_csv, min_score=min_score, max_score=max_score
-        )
-        chunk_reader = list(csv.reader(StringIO(annotated_chunk_csv)))
-
-        # First row is header; keep only data rows when merging.
-        data_rows = chunk_reader[1:]
-        all_output_rows.extend(data_rows)
-
-    # Write merged CSV (single header + all annotated rows)
-    with open(output_path, "w", newline="", encoding="utf-8") as f:
-        writer = csv.writer(f)
-        # Header: original + two new columns
-        extended_header = header + ["Estimated Sentiment", "Reasoning"]
-        writer.writerow(extended_header)
-        for row in all_output_rows:
-            writer.writerow(row)
+if __name__ == "__main__":
+    main()
